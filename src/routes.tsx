@@ -1,7 +1,6 @@
 import { lazy } from 'react';
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 import HomeLayout from './layout/HomeLayout';
-import AccessDenied from './pages/AccessDenied';
 import Error404 from './pages/Error404';
 import Login from './pages/Login';
 import Register from './pages/Register';
