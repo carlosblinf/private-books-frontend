@@ -6,6 +6,9 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 
 const Home = lazy(() => import('./pages/Home'));
+const Search = lazy(() => import('./pages/Search'));
+const Favorite = lazy(() => import('./pages/Favorite'));
+const Profile = lazy(() => import('./pages/Profile'));
 
 const routes = createBrowserRouter([
   {
@@ -23,6 +26,18 @@ const routes = createBrowserRouter([
       {
         path: '/',
         element: <Home />,
+      },
+      {
+        path: '/search',
+        element: <Search />,
+      },
+      {
+        path: '/favorite',
+        element: <Favorite />,
+      },
+      {
+        path: '/profile',
+        element: <Profile />,
       },
       {
         path: '/error-404',
