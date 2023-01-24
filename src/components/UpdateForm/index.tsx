@@ -107,10 +107,10 @@ function UpdateForm() {
           {...register('confirm_password')}
           className={`form-control ${errors.confirm_password ? 'is-invalid' : ''}`}
         />
-        <div className="invalid-feedback">{errors.confirm_password?.message || errors.confirm?.message}</div>
+        <div className="invalid-feedback">{errors.confirm_password?.message}</div>
       </div>
       <button className="w-2/5 p-3 text-xl text-white bg-gray-800 rounded" type="submit">
-        Register
+        Update
       </button>
     </From>
   );

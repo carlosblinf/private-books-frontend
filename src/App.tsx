@@ -2,7 +2,6 @@ import React from 'react';
 import { RouterProvider } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import routes from './routes';
-import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
@@ -21,15 +20,6 @@ function App() {
           style: {
             background: '#363636',
             color: '#fff',
-          },
-
-          // Default options for specific types
-          success: {
-            duration: 3000,
-            theme: {
-              primary: 'green',
-              secondary: 'black',
-            },
           },
         }}
       />
