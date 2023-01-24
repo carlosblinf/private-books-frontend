@@ -2,14 +2,17 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 import { Book } from '../../types/book';
+import { getItem, setItem } from '../../utils/localStorage';
 
 type BookState = {
   books: Book[];
-  currentBook: Book;
+  favorites: Book[];
+  search: Book[];
 };
 const initialState: BookState = {
   books: [] as Book[],
-  currentBook: {} as Book,
+  favorites: getItem('favorites') || [],
+  search: [],
 };
 export const bookSlice = createSlice({
   name: 'bookSlice',
@@ -21,19 +24,20 @@ export const bookSlice = createSlice({
     addBook: (state, action: PayloadAction<Book>) => {
       state.books?.push(action.payload);
     },
-    getBook: (state, action: PayloadAction<string>) => {
-      state.currentBook = state.books?.find((book) => book.isbn13 !== action.payload) || ({} as Book);
+    addFavorites: (state, action: PayloadAction<Book>) => {
+      const include = state.favorites?.map((item) => item.isbn13).includes(action.payload.isbn13);
+      if (include) {
+        state.favorites = state.favorites.filter((book) => book.isbn13 !== action.payload.isbn13);
+      } else state.favorites?.push(action.payload);
+      setItem('favorites', state.favorites);
     },
-    updateBook: (state, action: PayloadAction<Book>) => {
-      state.books?.map((book) => (book.isbn13 === action.payload.isbn13 ? action.payload : book));
-    },
-    deleteBook: (state, action: PayloadAction<string>) => {
-      state.books?.filter((book) => book.isbn13 !== action.payload);
+    addSearch: (state, action: PayloadAction<Book[]>) => {
+      state.search = action.payload;
     },
   },
 });
 
-export const { getBooks, addBook, getBook, updateBook, deleteBook } = bookSlice.actions;
+export const { getBooks, addBook, addFavorites, addSearch } = bookSlice.actions;
 export const selectBooks = (state: RootState) => state.book.books;
 
 export default bookSlice.reducer;

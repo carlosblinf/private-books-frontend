@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import BookDetail from '../../components/BookDetail';
 import { Book } from '../../types/book';
+import { BookService } from '../../services/BookService';
 
 function Detail() {
   const { isbn } = useParams();
@@ -9,12 +10,13 @@ function Detail() {
 
   useEffect(() => {
     if (isbn) {
-      // dispatch call api
-      setBook({} as Book);
+      BookService.getBook(isbn).then((res) => {
+        setBook(res);
+      });
     }
   }, [isbn]);
 
-  // if (!book.isbn13) return null;
+  if (!book.isbn13) return null;
 
   return <BookDetail book={book} />;
 }

@@ -4,24 +4,20 @@ import BookCardList from '../BookCardList';
 import { RootState, useAppDispatch, useAppSelector } from '../../redux/store';
 import { getBooks } from '../../redux/slices/book.slice';
 import { BookService } from '../../services/BookService';
-import { Book } from '../../types/book';
 
 function WrapperBookList() {
   const dispatch = useAppDispatch();
   const books = useAppSelector((state: RootState) => state.book.books);
 
-  async function getNewBooks() {
-    const res = await BookService.getLastBooks();
-    dispatch(getBooks(res));
-  }
-
   useEffect(() => {
-    getNewBooks();
+    BookService.getLastBooks().then((res) => {
+      dispatch(getBooks(res));
+    });
   }, []);
 
   return (
     <div className="flex items-center content-center justify-center">
-      {books.length ? <BookCardList books={books} /> : <Typography>The BookFinder is empty</Typography>}
+      {books && books.length ? <BookCardList books={books} /> : <Typography>The BookFinder is empty</Typography>}
     </div>
   );
 }

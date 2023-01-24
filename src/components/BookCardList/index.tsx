@@ -8,7 +8,7 @@ type BookListProps = {
 
 function BookCardList({ books }: BookListProps) {
   return (
-    <div className="flex flex-wrap justify-center gap-10 p-5 xl:justify-between">
+    <div className="flex flex-wrap justify-center gap-10 p-5">
       {books.map((book) => (
         <BookCard book={book} key={book.isbn13} />
       ))}

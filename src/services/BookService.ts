@@ -1,10 +1,16 @@
 import { Book } from '../types/book';
 import { api } from '../utils/api';
 
-api.interceptors.response.use((res) => res.data.books);
+api.interceptors.response.use(
+  (res) => {
+    if (res.data.books) return res.data.books;
+    return res.data;
+  },
+  (error) => console.log(error)
+);
 
 export const BookService = {
   getLastBooks: async (): Promise<Book[]> => api.get('/new'),
-  getBook: async (isbn13: string): Promise<Book> => api.get(`/books/${isbn13}`),
+  getBook: async (isbn: string): Promise<Book> => api.get(`/books/${isbn}`),
   findBook: async (query: string): Promise<Book[]> => api.get(`/search/${query}`),
 };

@@ -1,23 +1,16 @@
 import React from 'react';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import Share from '@mui/icons-material/Share';
 import { Link } from 'react-router-dom';
 import { Book } from '../../types/book';
 import { BookContainer, BookInfo, Actions, BookTitle, BookSubTitle } from './styled-components';
+import { useFavorites } from '../../hooks/useFavorites';
 
 type BookProps = {
   book: Book;
 };
 
 function BookCard({ book }: BookProps) {
-  const favorite = () => {
-    const isFavorite = false;
-    if (isFavorite) return <FavoriteIcon />;
-
-    return <FavoriteBorderOutlinedIcon />;
-  };
-
+  const { favorite, handleOnclick } = useFavorites(book);
   return (
     <BookContainer className="cardW ">
       <div>
@@ -34,7 +27,7 @@ function BookCard({ book }: BookProps) {
       </div>
       <Actions>
         <div className="flex gap-2 cursor-pointer">
-          {favorite()}
+          <div onClick={() => handleOnclick()}>{favorite()}</div>
           <Share />
         </div>
         <Link to={`/books/${book.isbn13}`} className="px-2 py-1 text-white bg-gray-700 rounded">

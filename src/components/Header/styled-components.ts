@@ -12,6 +12,6 @@ export const MainTitile = tw.h1`
   text-3xl font-bold uppercase lg:text-5xl
 `;
 
-export const SearchBar = tw.div`
-flex order-1 flex-1 px-2 py-1 min-w-[268px] max-w-2xl text-gray-400 border-[1px] border-gray-200 rounded sm:w-auto md:order-none
+export const SearchBar = tw.form`
+relative flex order-1 flex-1 px-2 py-1 min-w-[268px] max-w-2xl text-gray-400 border-[1px] border-gray-200 rounded sm:w-auto md:order-none
 `;

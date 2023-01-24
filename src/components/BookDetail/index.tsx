@@ -1,7 +1,5 @@
 import React from 'react';
 import Share from '@mui/icons-material/Share';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import { Book } from '../../types/book';
 import {
   Actions,
@@ -13,71 +11,69 @@ import {
   DetailContainer,
   DetailSection,
 } from './styled-components';
-import image from '../../assets/image.png';
+
+import { useFavorites } from '../../hooks/useFavorites';
 
 type BookDetailProps = {
   book: Book;
 };
 
 function BookDetail({ book }: BookDetailProps) {
-  const favorite = () => {
-    const isFavorite = false;
-    if (isFavorite) return <FavoriteIcon />;
-
-    return <FavoriteBorderOutlinedIcon />;
-  };
+  const { favorite, handleOnclick } = useFavorites(book);
 
   return (
     <BookDetailContainer className="cardWhite">
       <div className="flex w-full lg:w-1/2 h-[500px] md:p-3">
-        <img className="w-full" src={image} alt="book" />
+        <img className="w-full" src={book.image} alt="book" />
       </div>
       <BookDetails>
         <div>
-          <BookTitle>Lorem ipsum dolor sit amet.</BookTitle>
-          <BookSubtitle>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus, nostrum!</BookSubtitle>
+          <BookTitle>{book.title}</BookTitle>
+          <BookSubtitle>{book.subtitle}</BookSubtitle>
         </div>
         <AuthorContainer>
           <div className="flex gap-1">
             <span className="font-bold">author: </span>
-            <span>Lorem ipsum dolor sit.</span>
+            <span>{book.authors}</span>
           </div>
           <div className="flex gap-1">
             <span className="font-bold">publisher: </span>
-            <span>Lorem ipsum dolor sit amet.</span>
+            <span>{book.publisher}</span>
           </div>
         </AuthorContainer>
         <DetailContainer>
           <DetailSection>
             <div>
               <span className="font-bold">pages: </span>
-              <span>450</span>
+              <span>{book.pages}</span>
             </div>
             <div>
-              <span className="font-bold">year: </span>1995
+              <span className="font-bold">year: </span>
+              <span>{book.year}</span>
             </div>
           </DetailSection>
           <DetailSection>
             <div>
-              <span className="font-bold">isbn: </span>1995asdasdas
+              <span className="font-bold">isbn13: </span>
+              <span>{book.isbn13}</span>
             </div>
             <div>
-              <span className="font-bold">price: </span>55.5
+              <span className="font-bold">price: </span>
+              <span>{book.price}</span>
             </div>
           </DetailSection>
         </DetailContainer>
         <div>
           <h4 className="font-semibold text-xl">About book</h4>
           <p className="text-justify">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perspiciatis commodi velit in fugiat, molestias quasi quisquam
-            est incidunt, ab ipsa quam ipsum mollitia iure? Voluptatum quasi quidem rem at delectus.
+            <span>{book.desc}</span>
           </p>
         </div>
         <Actions>
-          <a href="#" target="_blank" className="py-2 px-6 bg-gray-700 text-white rounded">
+          <a href={book.url} target="_blank" className="py-2 px-6 bg-gray-700 text-white rounded" rel="noreferrer">
             visit
           </a>
-          <div>{favorite()}</div>
+          <div onClick={() => handleOnclick()}>{favorite()}</div>
           <div>
             <Share />
           </div>
