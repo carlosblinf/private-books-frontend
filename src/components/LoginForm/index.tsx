@@ -1,7 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { From, TextInput } from '../../styled-components/forms';
 import { LoginSchema, LoginSchemaType } from '../../utils/validateForm';
 import { login } from '../../redux/slices/auth.slice';

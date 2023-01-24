@@ -2,6 +2,8 @@ import React from 'react';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import { useNavigate } from 'react-router-dom';
+import { useAppDispatch } from '../../../../redux/store';
+import { logout } from '../../../../redux/slices/auth.slice';
 
 export const menuId = 'primary-search-account-menu';
 
@@ -11,12 +13,25 @@ type NavigationProps = {
 };
 
 function Navigation({ anchorEl, handleMenuClose }: NavigationProps) {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const isMenuOpen = Boolean(anchorEl);
 
   function handleOnClick(rute: 'profile' | 'search' | 'favorite' | 'logout') {
     handleMenuClose();
-    if (rute === 'logout') console.log('logout');
+    if (rute === 'logout') {
+      dispatch(logout())
+      .unwrap()
+      .then(() => {
+        navigate('/login');
+      })
+      .catch((error) => {
+        console.log(
+          'mensaje',
+          (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
+        );
+      });
+    }
     else navigate(rute);
   }
 
