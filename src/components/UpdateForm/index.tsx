@@ -2,8 +2,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import toast from 'react-hot-toast';
 import { From, TextInput } from '../../styled-components/forms';
-import userImg from '../../assets/user.png';
 import { UpdateSchema, UpdateSchemaType } from '../../utils/validateForm';
 import { RootState, useAppDispatch, useAppSelector } from '../../redux/store';
 import { User } from '../../types/user';
@@ -42,6 +42,7 @@ function UpdateForm() {
     if (img) return URL.createObjectURL(img);
     return user.image;
   };
+  const notify = (text: string) => toast.success(text);
 
   function onsubmit(data: UpdateSchemaType) {
     const send: User = {
@@ -51,6 +52,7 @@ function UpdateForm() {
       image: urlImg(),
     };
     dispatch(updateAcound(send));
+    notify('User updated');
   }
   return (
     <From onSubmit={handleSubmit(onsubmit)}>

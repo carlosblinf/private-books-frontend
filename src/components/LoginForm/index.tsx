@@ -2,6 +2,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 import { From, TextInput } from '../../styled-components/forms';
 import { LoginSchema, LoginSchemaType } from '../../utils/validateForm';
 import { login } from '../../redux/slices/auth.slice';
@@ -18,6 +19,7 @@ function LoginForm() {
   } = useForm<LoginSchemaType>({
     resolver: zodResolver(LoginSchema),
   });
+  const notify = (text: string) => toast.error(text);
 
   function onsubmit(data: LoginSchemaType) {
     dispatch(login(data))
@@ -26,10 +28,8 @@ function LoginForm() {
         navigate('/');
       })
       .catch((error) => {
-        console.log(
-          'mensaje',
-          (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
-        );
+        const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
+        notify(message);
       });
   }
 

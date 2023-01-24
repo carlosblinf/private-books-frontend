@@ -29,5 +29,5 @@ flex flex-1 flex-col gap-2
 `;
 
 export const Actions = tw.div`
-flex gap-3 items-center
+flex gap-3 items-center cursor-pointer
 `;
