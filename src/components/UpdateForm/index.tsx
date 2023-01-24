@@ -1,19 +1,33 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { From, TextInput } from '../../styled-components/forms';
-import user from '../../assets/user.png';
+import userImg from '../../assets/user.png';
 import { UpdateSchema, UpdateSchemaType } from '../../utils/validateForm';
+import { RootState, useAppDispatch, useAppSelector } from '../../redux/store';
+import { User } from '../../types/user';
+import { updateAcound } from '../../redux/slices/auth.slice';
 
 function UpdateForm() {
+  const dispatch = useAppDispatch();
+  const user = useAppSelector((state: RootState) => state.auth.user);
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<UpdateSchemaType>({
     resolver: zodResolver(UpdateSchema),
   });
+
+  useEffect(() => {
+    if (user.id) {
+      setValue('fullName', user.fullName);
+      setValue('userName', user.userName);
+      setValue('email', user.email);
+    }
+  }, [user]);
 
   const [img, setImg] = useState<File>();
   const imgRef = useRef<HTMLInputElement>(null);
@@ -26,11 +40,17 @@ function UpdateForm() {
 
   const urlImg = () => {
     if (img) return URL.createObjectURL(img);
-    return user;
+    return user.image;
   };
 
   function onsubmit(data: UpdateSchemaType) {
-    console.log(data);
+    const send: User = {
+      userName: data.userName,
+      fullName: data.fullName,
+      email: data.email,
+      image: urlImg(),
+    };
+    dispatch(updateAcound(send));
   }
   return (
     <From onSubmit={handleSubmit(onsubmit)}>

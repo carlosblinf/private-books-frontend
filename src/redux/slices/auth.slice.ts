@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { getItem } from '../../utils/localStorage';
+import { getItem, setItem } from '../../utils/localStorage';
 import { User } from '../../types/user';
 import { LoginSchemaType } from '../../utils/validateForm';
 import { AuthService } from '../../services/AuthService';
@@ -37,8 +37,9 @@ export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    updateUser: (state, action: PayloadAction<User>) => {
-      state.user = action.payload;
+    updateAcound: (state, action: PayloadAction<User>) => {
+      state.user = { ...state.user, ...action.payload };
+      setItem('user', state.user);
     },
   },
   extraReducers: (builder) => {
@@ -75,5 +76,7 @@ export const authSlice = createSlice({
     });
   },
 });
+
+export const { updateAcound } = authSlice.actions;
 
 export default authSlice.reducer;

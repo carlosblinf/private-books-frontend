@@ -34,7 +34,7 @@ export const UpdateSchema = z
         path: ['confirm'],
       });
     }
-    if (password.length < 5 || confirm_password.length < 5) {
+    if ((password.length > 1 && password.length < 5) || (confirm_password.length > 1 && confirm_password.length < 5)) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
         message: `Password must be more than 5 characters.`,
