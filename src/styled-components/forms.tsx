@@ -12,7 +12,7 @@ export const RegisterCard = tw.div`
 `;
 
 export const From = tw.form`
- w-full flex flex-col justify-center items-start gap-4
+ w-full flex flex-col justify-center items-start gap-2
 `;
 
 export const TextInput = tw.input`
