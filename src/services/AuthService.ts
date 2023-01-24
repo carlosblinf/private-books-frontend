@@ -12,15 +12,17 @@ export const AuthService = {
     return newUser;
   },
   login: ({ userName, password }: LoginSchemaType) => {
-    const localStorageUser = getItem('user');
-    if (localStorageUser) {
-      const user: User = JSON.parse(localStorageUser);
-      if (user.userName === userName && user.password === password) return user;
+    const user = getItem('user');
+    if (user) {
+      if (user.userName === userName && user.password === password) {
+        setItem('login', true);
+        return;
+      }
       throw new Error('Username or password incorrect!');
     } else throw new Error('You need to register!');
   },
   logout: async () => {
-    deleteItem('user');
     // call api
+    deleteItem('login');
   },
 };

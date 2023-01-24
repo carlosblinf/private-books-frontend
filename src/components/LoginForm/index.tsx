@@ -1,10 +1,16 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { From, TextInput } from '../../styled-components/forms';
 import { LoginSchema, LoginSchemaType } from '../../utils/validateForm';
+import { login } from '../../redux/slices/auth.slice';
+import { useAppDispatch } from '../../redux/store';
 
 function LoginForm() {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
   const {
     register,
     handleSubmit,
@@ -14,7 +20,17 @@ function LoginForm() {
   });
 
   function onsubmit(data: LoginSchemaType) {
-    console.log(data);
+    dispatch(login(data))
+      .unwrap()
+      .then(() => {
+        navigate('/');
+      })
+      .catch((error) => {
+        console.log(
+          'mensaje',
+          (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
+        );
+      });
   }
 
   return (
