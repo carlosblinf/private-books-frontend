@@ -4,6 +4,7 @@ import HomeLayout from './layout/HomeLayout';
 import Error404 from './pages/Error404';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import PrivateRoutes, { LoggedRoute } from './PrivateRoutes';
 
 const Home = lazy(() => import('./pages/Home'));
 const Search = lazy(() => import('./pages/Search'));
@@ -14,15 +15,19 @@ const Detail = lazy(() => import('./pages/Detail'));
 const routes = createBrowserRouter([
   {
     path: '/login',
-    element: <Login />,
+    element: <LoggedRoute component={<Login />} />,
   },
   {
     path: '/register',
-    element: <Register />,
+    element: <LoggedRoute component={<Register />} />,
+  },
+  {
+    path: '/error-404',
+    element: <Error404 />,
   },
   {
     path: '/',
-    element: <HomeLayout />,
+    element: <PrivateRoutes component={<HomeLayout />} />,
     children: [
       {
         path: '/',
@@ -43,10 +48,6 @@ const routes = createBrowserRouter([
       {
         path: '/books/:isbn',
         element: <Detail />,
-      },
-      {
-        path: '/error-404',
-        element: <Error404 />,
       },
     ],
   },
