@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../store';
 
@@ -19,7 +20,6 @@ export const bookSlice = createSlice({
   initialState,
   reducers: {
     getBooks: (state, action: PayloadAction<BookState>) => {
-      // eslint-disable-next-line no-param-reassign
       state.books = action.payload.books;
     },
     addBook: (state, action: PayloadAction<Book>) => {

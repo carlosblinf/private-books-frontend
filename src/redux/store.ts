@@ -1,10 +1,12 @@
 import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit';
 import { useDispatch, TypedUseSelectorHook, useSelector } from 'react-redux';
-import bookReducer from './features/book/book.slice';
+import bookReducer from './slices/book.slice';
+import authReducer from './slices/auth.slice';
 
 export const store = configureStore({
   reducer: {
     book: bookReducer,
+    auth: authReducer,
   },
   devTools: true,
 });

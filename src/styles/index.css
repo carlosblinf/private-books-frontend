@@ -27,6 +27,10 @@
   scale: 1.1;
 }
 
+.formGroup {
+  width: 100%;
+}
+
 .form-control:invalid,
 .form-control.is-invalid {
   border-color: #dc3545;

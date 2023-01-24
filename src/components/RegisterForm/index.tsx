@@ -2,11 +2,17 @@
 import React, { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useNavigate } from 'react-router-dom';
 import { From, TextInput } from '../../styled-components/forms';
-import user from '../../assets/user.png';
 import { RegisterSchema, RegisterSchemaType } from '../../utils/validateForm';
+import { RootState, useAppDispatch, useAppSelector } from '../../redux/store';
+import { registerUser } from '../../redux/slices/auth.slice';
+import { User } from '../../types/user';
 
 function RegisterForm() {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
   const {
     register,
     handleSubmit,
@@ -26,11 +32,25 @@ function RegisterForm() {
 
   const urlImg = () => {
     if (img) return URL.createObjectURL(img);
-    return user;
+    return '/user.png';
   };
 
   function onsubmit(data: RegisterSchemaType) {
-    console.log(data);
+    const send: User = {
+      ...data,
+      image: urlImg(),
+    };
+    dispatch(registerUser(send))
+      .unwrap()
+      .then(() => {
+        navigate('/');
+      })
+      .catch((error) => {
+        console.log(
+          'mensaje',
+          (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
+        );
+      });
   }
   return (
     <From onSubmit={handleSubmit(onsubmit)}>

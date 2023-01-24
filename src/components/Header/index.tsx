@@ -2,16 +2,19 @@ import React from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import { Box, IconButton } from '@mui/material';
 import { Link } from 'react-router-dom';
-import user from '../../assets/user.png';
+import userImg from '../../assets/user.png';
 import Navigation, { menuId } from './components/Navigation';
 import { HeaderContainer, Container, MainTitile, SearchBar } from './styled-components';
+import { RootState, useAppSelector } from '../../redux/store';
 
 function Header() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const { user: currentUser } = useAppSelector((state: RootState) => state.auth);
 
-  const urlImg = () =>
-    // if (user.img) return user.img;
-    user;
+  const urlImg = () => {
+    if (currentUser.image) return currentUser.image;
+    return userImg;
+  };
 
   const handleMenuClose = () => {
     setAnchorEl(null);
