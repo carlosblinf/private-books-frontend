@@ -38,8 +38,8 @@ function Navigation({ anchorEl, handleMenuClose }: NavigationProps) {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={() => handleOnClick('favorite')}>Favorites</MenuItem>
-      <MenuItem onClick={() => handleOnClick('profile')}>Profile</MenuItem>
       <MenuItem onClick={() => handleOnClick('search')}>Search</MenuItem>
+      <MenuItem onClick={() => handleOnClick('profile')}>Profile</MenuItem>
       <MenuItem onClick={() => handleOnClick('logout')}>Logout</MenuItem>
     </Menu>
   );

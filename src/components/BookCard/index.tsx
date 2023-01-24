@@ -4,9 +4,7 @@ import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlin
 import Share from '@mui/icons-material/Share';
 import { Link } from 'react-router-dom';
 import { Book } from '../../types/book';
-
 import { BookContainer, BookInfo, Actions, BookTitle, BookSubTitle } from './styled-components';
-import image from '../../assets/image.png';
 
 type BookProps = {
   book: Book;
@@ -23,19 +21,19 @@ function BookCard({ book }: BookProps) {
   return (
     <BookContainer className="cardW ">
       <div>
-        <a href={book.url} target="_blank" className="w-[200px] h-[230px]" rel="noreferrer">
-          <img src={image} alt="book" className="w-full" title="See in the store" />
+        <a href={book.url} target="_blank" className="w-[200px]" rel="noreferrer">
+          <img src={book.image} alt="book" className="w-full h-[230px]" title="See in the store" />
         </a>
         <BookInfo>
           <div className="flex justify-between gap-3">
-            <BookTitle>Lorem ipsum dolor sit amet.</BookTitle>
-            <span>$55.40</span>
+            <BookTitle>{book.title}</BookTitle>
+            <span>{book.price}</span>
           </div>
-          <BookSubTitle>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Labore, a!</BookSubTitle>
+          <BookSubTitle>{book.subtitle}</BookSubTitle>
         </BookInfo>
       </div>
       <Actions>
-        <div className="flex gap-2">
+        <div className="flex gap-2 cursor-pointer">
           {favorite()}
           <Share />
         </div>

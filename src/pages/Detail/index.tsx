@@ -14,6 +14,8 @@ function Detail() {
     }
   }, [isbn]);
 
+  // if (!book.isbn13) return null;
+
   return <BookDetail book={book} />;
 }
 
