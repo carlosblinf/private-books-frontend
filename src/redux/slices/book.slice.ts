@@ -1,38 +1,34 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState } from '../../store';
-
-interface Book {
-  id: string;
-  title: string;
-  description: string;
-  image: string;
-}
+import { RootState } from '../store';
+import { Book } from '../../types/book';
 
 type BookState = {
   books: Book[];
+  currentBook: Book;
 };
 const initialState: BookState = {
-  books: [],
+  books: [] as Book[],
+  currentBook: {} as Book,
 };
 export const bookSlice = createSlice({
   name: 'bookSlice',
   initialState,
   reducers: {
-    getBooks: (state, action: PayloadAction<BookState>) => {
-      state.books = action.payload.books;
+    getBooks: (state, action: PayloadAction<Book[]>) => {
+      state.books = action.payload;
     },
     addBook: (state, action: PayloadAction<Book>) => {
       state.books?.push(action.payload);
     },
     getBook: (state, action: PayloadAction<string>) => {
-      state.books?.find((book) => book.id !== action.payload);
+      state.currentBook = state.books?.find((book) => book.isbn13 !== action.payload) || ({} as Book);
     },
     updateBook: (state, action: PayloadAction<Book>) => {
-      state.books?.map((book) => (book.id === action.payload.id ? action.payload : book));
+      state.books?.map((book) => (book.isbn13 === action.payload.isbn13 ? action.payload : book));
     },
     deleteBook: (state, action: PayloadAction<string>) => {
-      state.books?.filter((book) => book.id !== action.payload);
+      state.books?.filter((book) => book.isbn13 !== action.payload);
     },
   },
 });
