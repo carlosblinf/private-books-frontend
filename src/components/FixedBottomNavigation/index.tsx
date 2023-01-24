@@ -28,9 +28,10 @@ export default function FixedBottomNavigation() {
 
   return (
     <Box sx={{ pb: 8, display: { sm: 'block', md: 'none' } }}>
-      <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0, pb: 1 }} elevation={3}>
+      <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0, pb: 1, px: 2 }} elevation={3}>
         <BottomNavigation
           showLabels
+          sx={{ p: 0 }}
           value={value}
           onChange={(event, newValue) => {
             setValue(newValue);

@@ -39,7 +39,7 @@ function BookCard({ book }: BookProps) {
           {favorite()}
           <Share />
         </div>
-        <Link to={`/book/${book.isbn13}`} className="px-2 py-1 text-white bg-gray-700 rounded">
+        <Link to={`/books/${book.isbn13}`} className="px-2 py-1 text-white bg-gray-700 rounded">
           Detail
         </Link>
       </Actions>

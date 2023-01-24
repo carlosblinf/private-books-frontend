@@ -9,6 +9,7 @@ const Home = lazy(() => import('./pages/Home'));
 const Search = lazy(() => import('./pages/Search'));
 const Favorite = lazy(() => import('./pages/Favorite'));
 const Profile = lazy(() => import('./pages/Profile'));
+const Detail = lazy(() => import('./pages/Detail'));
 
 const routes = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ const routes = createBrowserRouter([
       {
         path: '/profile',
         element: <Profile />,
+      },
+      {
+        path: '/books/:isbn',
+        element: <Detail />,
       },
       {
         path: '/error-404',
