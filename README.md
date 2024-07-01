@@ -3,6 +3,8 @@
 Book finder with React + Typescript + TailwindCss + Styled Components + Vite + EsLint + Prettier
 
 You can visit demo [here](https://book-finder-carlosblinf.vercel.app).
+<br />
+<img src="https://github.com/carlosblinf/public_files/blob/main/images/bookfinder.jpg" align="center" width="400px" /></a>
 
 ## Getting started
 
